@@ -1,0 +1,28 @@
+﻿@using ProvaWebApplicazione.Models;
+@model List<Category>
+<h1>Elenco Categorie</h1>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Category name</th>
+                <th>Description</th>               
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Category c in Model)
+            {
+                <tr>
+                    <td><a href="/Prodotti?IdCategoria=@c.CategoryId">
+                        @c.CategoryId
+                        </a>
+                    </td>
+                    <td>@c.CategoryName</td>
+                    <td>@c.Description</td>                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

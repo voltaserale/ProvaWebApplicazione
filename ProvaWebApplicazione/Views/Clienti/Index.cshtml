@@ -1,0 +1,30 @@
+﻿@using ProvaWebApplicazione.Models;
+@model List<Customer> 
+<h1>Elenco clienti</h1>
+
+<div class="container">
+    <table class="table"> 
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Company name</th>
+                <th>Contact name</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>Region</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Customer c in Model)
+            {
+                <tr>
+                    <td>@c.CustomerId</td>
+                    <td>@c.CompanyName</td>
+                    <td>@c.Address</td>
+                    <td>@c.City</td>
+                    <td>@c.Region</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
