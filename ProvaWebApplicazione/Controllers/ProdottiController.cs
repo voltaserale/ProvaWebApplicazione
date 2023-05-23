@@ -24,5 +24,31 @@ namespace ProvaWebApplicazione.Controllers
                 return View(prodotti);      //lo passo alla vista
             }           
         }
+
+        [HttpGet]
+        public IActionResult Create()       //gestisce richieste /Prodotti/Create (visualizza una pagina di inserimento)
+        {
+            return View();      //la vista si chiamerà Create
+        }
+
+
+        [HttpPost]
+        public IActionResult Create(Product product)       //gestisce richieste /Prodotti/Create (visualizza una pagina di inserimento)
+        {
+            //product mi arriva valorizzato dalla vista di inserimento
+            using (NorthwindDbContext dbContext = new NorthwindDbContext())
+            {
+                Product p=new Product();
+                //copio i dati nel nuovo prodotto
+                p.ProductId=product.ProductId;
+                p.ProductName=product.ProductName;
+                p.UnitPrice=product.UnitPrice;
+                p.Discontinued = 0;
+                dbContext.Products.Add(p);      //aggiungo il prodotto
+                dbContext.SaveChanges();        //salvo i cambiamenti sul db
+                return (RedirectToAction("Index"));     //ritorno sull'elenco dei prodotti
+            }
+             
+        }
     }
 }

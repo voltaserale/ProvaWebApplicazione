@@ -1,0 +1,29 @@
+﻿@model Product
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex align-items-center">
+                <h1>Nuovo prodotto</h1>
+            </div>
+            <form asp-controller="Prodotti" asp-action="Create" method="post">
+                <div>
+                    <strong>Id:</strong>
+                    <input asp-for="ProductId" class="d-block w-100"/>
+                </div>
+                <div>
+                    <strong>Name:</strong>
+                    <input asp-for="ProductName" class="d-block w-100" />
+                </div>
+                
+                <div>
+                    <strong>Price:</strong>
+                    <input asp-for="UnitPrice" class="d-block w-100" />
+                </div>
+                <button class="btn btn-primary" type="submit">Save</button>
+
+            </form>
+            
+        </div>
+    </div>
+</div>

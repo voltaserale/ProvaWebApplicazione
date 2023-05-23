@@ -1,0 +1,31 @@
+﻿@using ProvaWebApplicazione.Models;
+@model List<Vistaordini>
+<h1>Elenco clienti</h1>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Order date</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Employee</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Vistaordini vo in Model)
+            {
+                <tr>
+                    <td>@vo.OrderId</td>
+                    <td>@(String.Format("{0:d}",vo.OrderDate))</td>
+                    <td>@vo.Customer</td>
+                    <td>@vo.ProductName</td>
+                    <td>@vo.Quantity</td>
+                    <td>@vo.Employee</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

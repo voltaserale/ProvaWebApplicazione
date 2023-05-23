@@ -6,7 +6,8 @@
 
 <div class="container">
     <h1 class="display-4">Products:</h1>
-    <table class="table">
+    <a class="btn btn-primary" href="@Url.Action("Create")">Nuovo prodotto</a>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <td>Id</td>
@@ -24,7 +25,15 @@
                     <td>@product.ProductName</td>
                     <td>@product.UnitPrice</td>
                     <td>@product.CategoryId</td>
-                    <td>@product.Category.CategoryName</td>
+                    @if (product.Category!=null)
+                    {
+                        <td>@product.Category.CategoryName</td>
+                    } else
+                    {
+                        <td></td>
+                    }
+
+                   
                 </tr>
             }
         </tbody>

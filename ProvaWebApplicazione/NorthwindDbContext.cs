@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using ProvaWebApplicazione.Models;
 
@@ -41,9 +40,11 @@ public partial class NorthwindDbContext : DbContext
 
     public virtual DbSet<UsState> UsStates { get; set; }
 
+    public virtual DbSet<Vistaordini> Vistaordinis { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySQL("server=localhost;database=northwind_db;uid=root;pwd=5SIA_2023").LogTo(s => Debug.WriteLine(s));
+        => optionsBuilder.UseMySQL("server=localhost;database=northwind_db;uid=root;pwd=5SIA_2023");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -456,6 +457,28 @@ public partial class NorthwindDbContext : DbContext
             entity.Property(e => e.StateRegion)
                 .HasMaxLength(50)
                 .HasColumnName("state_region");
+        });
+
+        modelBuilder.Entity<Vistaordini>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("vistaordini");
+
+            entity.Property(e => e.Customer)
+                .HasMaxLength(40)
+                .HasColumnName("customer");
+            entity.Property(e => e.Employee)
+                .HasMaxLength(31)
+                .HasColumnName("employee");
+            entity.Property(e => e.OrderDate)
+                .HasColumnType("date")
+                .HasColumnName("order_date");
+            entity.Property(e => e.OrderId).HasColumnName("order_id");
+            entity.Property(e => e.ProductName)
+                .HasMaxLength(40)
+                .HasColumnName("product_name");
+            entity.Property(e => e.Quantity).HasColumnName("quantity");
         });
 
         OnModelCreatingPartial(modelBuilder);
