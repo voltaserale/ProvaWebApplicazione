@@ -28,7 +28,15 @@ namespace ProvaWebApplicazione.Controllers
         [HttpGet]
         public IActionResult Create()       //gestisce richieste /Prodotti/Create (visualizza una pagina di inserimento)
         {
-            return View();      //la vista si chiamerà Create
+            using (NorthwindDbContext dbContext = new NorthwindDbContext())
+            {
+                List<Category> categories = 
+                    dbContext.Categories
+                    .OrderBy(c => c.CategoryName)
+                    .ToList();
+                ViewData["elencoCategorie"] = categories;   //passo l'elenco delle categorie alla vista "nuovo ordine"
+                return View();      //la vista si chiamerà Create
+            }
         }
 
 
@@ -43,6 +51,7 @@ namespace ProvaWebApplicazione.Controllers
                 p.ProductId=product.ProductId;
                 p.ProductName=product.ProductName;
                 p.UnitPrice=product.UnitPrice;
+                p.CategoryId= product.CategoryId;   
                 p.Discontinued = 0;
                 dbContext.Products.Add(p);      //aggiungo il prodotto
                 dbContext.SaveChanges();        //salvo i cambiamenti sul db

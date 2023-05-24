@@ -1,5 +1,8 @@
 ﻿@model Product
 
+@{
+    List<Category> categories = ViewData["elencoCategorie"] as List<Category>;
+}
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -7,19 +10,27 @@
                 <h1>Nuovo prodotto</h1>
             </div>
             <form asp-controller="Prodotti" asp-action="Create" method="post">
-                <div>
+                <div class="mb-3">
                     <strong>Id:</strong>
                     <input asp-for="ProductId" class="d-block w-100"/>
                 </div>
-                <div>
+                <div class="mb-3">
                     <strong>Name:</strong>
                     <input asp-for="ProductName" class="d-block w-100" />
                 </div>
                 
-                <div>
+                <div class="mb-3">
                     <strong>Price:</strong>
-                    <input asp-for="UnitPrice" class="d-block w-100" />
+                    <input asp-for="UnitPrice" class="d-block" />
                 </div>
+
+                <div class="mb-3">
+                    <strong>Category:</strong>
+                    <select asp-for="CategoryId" asp-items="@(new SelectList(categories,"CategoryId","CategoryName"))">
+                        
+                    </select>
+                </div>
+
                 <button class="btn btn-primary" type="submit">Save</button>
 
             </form>
