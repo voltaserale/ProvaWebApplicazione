@@ -1,0 +1,39 @@
+﻿@model Product
+
+@{
+    List<Category> categories = ViewData["elencoCategorie"] as List<Category>;
+}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex align-items-center">
+                <h1>Modifica prodotto</h1>
+            </div>
+            <form asp-controller="Prodotti" asp-action="Update" method="post">
+                <div class="mb-3">
+                    <strong>Id:</strong>&nbsp;@Model.ProductId    <!-- l'id non è modificabile -->
+                    <input asp-for="ProductId" type="hidden" />   <!-- questo input non è visibile, serve solo a passare l'id del prodotto al controller -->
+                </div>
+                <div class="mb-3">
+                    <strong>Name:</strong>
+                    <input asp-for="ProductName" class="d-block w-100" />
+                </div>
+
+                <div class="mb-3">
+                    <strong>Price:</strong>
+                    <input asp-for="UnitPrice" class="d-block" />
+                </div>
+
+                <div class="mb-3">
+                    <strong>Category:</strong>
+                    <select asp-for="CategoryId" asp-items="@(new SelectList(categories,"CategoryId","CategoryName"))">
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" type="submit">Save</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>

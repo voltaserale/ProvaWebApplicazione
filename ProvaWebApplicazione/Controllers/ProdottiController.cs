@@ -61,6 +61,61 @@ namespace ProvaWebApplicazione.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult Update(int id)       //gestisce richieste /Prodotti/Update (visualizza una pagina di modifica, con i valori del prodotto impostati)
+        {
+            using (NorthwindDbContext dbContext = new NorthwindDbContext())
+            {
+                List<Category> categories =
+                    dbContext.Categories
+                    .OrderBy(c => c.CategoryName)
+                    .ToList();
+
+                Product? product =
+                    dbContext.Products
+                        .Where(p => p.ProductId == id)
+                        .FirstOrDefault();  //restituisce il prodotto corrispondente all'id passato come parametro o un valore null se l'id non esiste
+                if (product == null)
+                    return NotFound("Prodotto non trovato");
+                else
+                {
+                    ViewData["elencoCategorie"] = categories;   //passo l'elenco delle categorie alla vista "nuovo ordine"
+                    return View(product);      //la vista si chiamerà Update e riceve in ingresso il prodotto da modificare
+                }
+                
+            }
+        }
+
+
+        [HttpPost]
+        public IActionResult Update(Product product)       //gestisce richieste /Prodotti/Create (visualizza una pagina di inserimento)
+        {
+            //product mi arriva valorizzato dalla vista di inserimento
+            using (NorthwindDbContext dbContext = new NorthwindDbContext())
+            {
+                Product? productToEdit =
+                    dbContext.Products
+                        .Where(p => p.ProductId == product.ProductId)
+                        .FirstOrDefault();  //restituisce il prodotto corrispondente all'id passato come parametro o un valore null se l'id non esiste
+                if (productToEdit == null)
+                    return NotFound("Prodotto non trovato");
+                else
+                {
+                    //copio i dati nel prodotto da editare
+
+                    productToEdit.ProductName = product.ProductName;
+                    productToEdit.UnitPrice = product.UnitPrice;
+                    productToEdit.CategoryId = product.CategoryId;                   
+                    
+                    dbContext.SaveChanges();        //salvo i cambiamenti sul db
+                    return (RedirectToAction("Index"));     //ritorno sull'elenco dei prodotti
+                }
+                
+            }
+
+        }
+
+
         public IActionResult Delete(int id)       //gestisce richieste /Prodotti/Delete (elimina un prodotto)
         {
             using (NorthwindDbContext dbContext = new NorthwindDbContext())

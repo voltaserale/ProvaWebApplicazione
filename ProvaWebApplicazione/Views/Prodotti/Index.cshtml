@@ -17,6 +17,7 @@
                 <td>Id Categoria</td>
                 <td>Categoria</td>
                 <td></td>
+                <td></td>
             </tr>
         </thead>
         <tbody>
@@ -34,12 +35,12 @@
                     {
                         <td></td>
                     }
-                    <td><a title="Elimina prodotto" href="@Url.Action("Delete",new {id=product.ProductId})"><i class="fa-solid fa-trash"></i>
-
-                </a>
-
-                </td>
-                   
+                    <td>
+                        <a title="Elimina prodotto" href="@Url.Action("Delete",new {id=product.ProductId})"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                    <td>
+                        <a title="Modifica prodotto" href="@Url.Action("Update",new {id=product.ProductId})"><i class="fa-solid fa-pen-to-square"></i></a>
+                    </td>
                 </tr>
             }
         </tbody>
