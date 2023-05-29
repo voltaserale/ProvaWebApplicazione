@@ -1,0 +1,31 @@
+﻿@model Product;     //dal controller mi arriva un oggetto prodotto
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div>
+                <h1>Dettaglio prodotto:</h1>
+            </div>
+            <div>
+                <p>
+                    <strong>Id:</strong>&nbsp;@Model.ProductId
+                </p>
+                <p>
+                    <strong>Name:</strong>&nbsp;@Model.ProductName
+                </p>
+                <p>
+                    <strong>Price:</strong>&nbsp;@String.Format("{0:c2}",Model.UnitPrice)
+                </p>
+                <p>
+                    <strong>Quantity per unit:</strong>&nbsp;@Model.QuantityPerUnit
+                </p>
+                <p>
+                    <strong>Category:</strong>&nbsp;@Model.Category.CategoryName
+                </p>
+                <p>
+                    <strong>Supplier:</strong>&nbsp;@Model.Supplier.CompanyName
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

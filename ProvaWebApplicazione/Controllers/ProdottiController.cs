@@ -115,6 +115,23 @@ namespace ProvaWebApplicazione.Controllers
 
         }
 
+        public IActionResult Detail(int id)       //gestisce richieste /Prodotti/Detail (dettaglio prodotto)
+        {
+            using (NorthwindDbContext dbContext = new NorthwindDbContext())
+            {
+                Product? product = dbContext.Products
+                        .Include(p => p.Category)       //includo anche la categoria
+                        .Include(p => p.Supplier)       //includo anche il fornitore
+                        .FirstOrDefault(p => p.ProductId == id);
+                if (product == null)
+                    return NotFound("Prodotto non trovato");
+                else
+                {
+                    return View(product);       //chiamo la vista di dettaglio ("Detail.cshtml") passando il prodotto trovato
+                }
+
+            }
+        }
 
         public IActionResult Delete(int id)       //gestisce richieste /Prodotti/Delete (elimina un prodotto)
         {

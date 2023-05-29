@@ -18,6 +18,7 @@
                 <td>Categoria</td>
                 <td></td>
                 <td></td>
+                <td></td>
             </tr>
         </thead>
         <tbody>
@@ -35,6 +36,9 @@
                     {
                         <td></td>
                     }
+                    <td>
+                        <a title="Dettaglio prodotto" href="@Url.Action("Detail",new {id=product.ProductId})"><i class="fa-solid fa-eye"></i></a>
+                    </td>
                     <td>
                         <a title="Elimina prodotto" href="@Url.Action("Delete",new {id=product.ProductId})"><i class="fa-solid fa-trash"></i></a>
                     </td>
