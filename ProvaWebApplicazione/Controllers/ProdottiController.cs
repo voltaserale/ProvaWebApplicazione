@@ -8,6 +8,10 @@ namespace ProvaWebApplicazione.Controllers
     {
         public IActionResult Index(int? idCategoria)  //gestirà richieste /Prodotti o /Prodotti/Index o /Prodotti?idCategoria=*
         {
+            if (HttpContext.Session.GetString("username") == null)  //se non c'è un utente loggato richiamo la pagina di login
+                return RedirectToAction("Login", "Home");
+            else
+            {       //utente loggato => faccio vedere l'elenco dei prodotti
             using (NorthwindDbContext dbContext = new NorthwindDbContext())
             {
                 List<Product> prodotti;
@@ -22,6 +26,7 @@ namespace ProvaWebApplicazione.Controllers
                             .ToList();     //recupero l'elenco dei prodotti                   
 
                 return View(prodotti);      //lo passo alla vista
+            }
             }
         }
 

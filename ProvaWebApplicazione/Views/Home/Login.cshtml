@@ -1,0 +1,25 @@
+﻿@model User
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex align-items-center">
+                <h1>Please login</h1>
+            </div>
+            <form asp-controller="Home" asp-action="Login" method="post">
+                <div class="mb-3">
+                    <strong>Username:</strong>
+                    <input asp-for="Username" class="d-block" />
+                </div>
+                <div class="mb-3">
+                    <strong>Password:</strong>
+                    <input type="password" asp-for="Password" class="d-block" />
+                </div>
+
+                <button class="btn btn-primary" type="submit">Login</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>

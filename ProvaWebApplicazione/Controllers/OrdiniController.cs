@@ -7,14 +7,19 @@ namespace ProvaWebApplicazione.Controllers
     {
         public IActionResult Index()    //elenco ordini
         {
-            using (NorthwindDbContext dbContext=new NorthwindDbContext())
-            {
-                List<Vistaordini> ordini=
-                    dbContext.Vistaordinis.OrderBy(o => o.OrderDate).ToList();
+            if (HttpContext.Session.GetString("username") == null)  //se non c'è un utente loggato richiamo la pagina di login
+                return RedirectToAction("Login", "Home");
+            else
+            {       //utente loggato => faccio vedere l'elenco dei ordini
+                using (NorthwindDbContext dbContext = new NorthwindDbContext())
+                {
+                    List<Vistaordini> ordini =
+                        dbContext.Vistaordinis.OrderBy(o => o.OrderDate).ToList();
 
-                return View(ordini);
-            }     
-                
+                    return View(ordini);
+                }
+
+            }
         }
     }
 }
